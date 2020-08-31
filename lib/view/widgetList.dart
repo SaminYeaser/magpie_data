@@ -21,3 +21,15 @@ Widget AppBarText() {
     },
   );
 }
+Widget showingList(){
+  return DataTable(columns:[
+    DataColumn(label: Text('Date'),numeric: false),
+    DataColumn(label: Text('Close'),numeric: false),
+    DataColumn(label: Text('High'),numeric: false),
+    DataColumn(label: Text('Low'),numeric: false),
+    DataColumn(label: Text('Open'),numeric: false),
+    DataColumn(label: Text('Trade_code'),numeric: false),
+    DataColumn(label: Text('Volume'),numeric: false),
+  ]
+    ,);
+}

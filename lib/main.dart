@@ -13,7 +13,7 @@ void main() {
       primarySwatch: Colors.blue,
       visualDensity: VisualDensity.adaptivePlatformDensity,
     ),
-    home: AnimationData()
+    home: DefaultTabController(length: 3,child: AnimationData())
   ));
 }
 

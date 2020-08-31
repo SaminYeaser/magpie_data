@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'widgetList.dart';
@@ -28,6 +29,19 @@ class _AnimationState extends State<AnimationData> {
     return Scaffold(
       appBar: AppBar(
         title: AppBarText(),
+        bottom: TabBar(
+          tabs: [
+            Tab(
+              icon: Icon(Icons.table_chart),
+            ),
+            Tab(
+              icon: Icon(Icons.insert_chart),
+            ),
+            Tab(
+              icon: Icon(Icons.multiline_chart),
+            ),
+          ],
+        ),
         centerTitle: true,
         backgroundColor: Colors.indigo,
       ),
@@ -35,7 +49,8 @@ class _AnimationState extends State<AnimationData> {
         child: ListView.builder(
           itemCount: datam.length,
           itemBuilder: (BuildContext context, int position) {
-            return Card(
+            return
+              Card(
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(vertical: 10),
                 title: Text("${datam[position]['date']}"),
@@ -46,10 +61,11 @@ class _AnimationState extends State<AnimationData> {
                   open: ${datam[position]['open']}
                   trade_code: ${datam[position]['trade_code']}
                   volume: ${datam[position]['volume']}
-                  
+
                 """),
               ),
-            );
+            )
+                ;
           },
         ),
       ),
