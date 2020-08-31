@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'widgetList.dart';
 
 class AnimationData extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class _AnimationState extends State<AnimationData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Magpie Data'),
+        title: AppBarText(),
         centerTitle: true,
         backgroundColor: Colors.indigo,
       ),
