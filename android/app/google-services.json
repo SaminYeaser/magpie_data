@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "781648996771",
+    "firebase_url": "https://magpiedata-15eaf.firebaseio.com",
+    "project_id": "magpiedata-15eaf",
+    "storage_bucket": "magpiedata-15eaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:781648996771:android:64b944542d706b7c781216",
+        "android_client_info": {
+          "package_name": "com.example.magpie_data"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "781648996771-aod9o5jcv31ro6189aa4hg83padpis5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKAllA5XxUwVQaxCYtGM6oE5yMYilwPg8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "781648996771-aod9o5jcv31ro6189aa4hg83padpis5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
