@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'widgetList.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:json_table/json_table.dart';
 
 class AnimationData extends StatefulWidget {
   @override
@@ -10,20 +12,30 @@ class AnimationData extends StatefulWidget {
 }
 
 class _AnimationState extends State<AnimationData> {
+  List datam = [];
 
-  List datam = new List();
-  getDetails() async{
+//List _data;
+  List<charts.Series<Sales, int>> _seriesLineData;
+  var linesalesdata;
+
+  getDetails() async {
     List data = await getData();
     datam = data;
-    setState(() {
 
+    setState(() {
+      print(datam);
     });
   }
+
   @override
   void initState() {
-      getDetails();
+    getDetails();
+    getData();
+    _seriesLineData = List<charts.Series<Sales, int>>();
+    print(datam);
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,43 +49,86 @@ class _AnimationState extends State<AnimationData> {
             Tab(
               icon: Icon(Icons.insert_chart),
             ),
-            Tab(
-              icon: Icon(Icons.multiline_chart),
-            ),
           ],
         ),
         centerTitle: true,
         backgroundColor: Colors.indigo,
       ),
-      body: Center(
-        child: ListView.builder(
-          itemCount: datam.length,
-          itemBuilder: (BuildContext context, int position) {
-            return
-              Card(
-              child: ListTile(
-                contentPadding: EdgeInsets.symmetric(vertical: 10),
-                title: Text("${datam[position]['date']}"),
-                subtitle: Text("""
-                  close: ${datam[position]['close']}
-                  high: ${datam[position]['high']}
-                  low: ${datam[position]['low']}
-                  open: ${datam[position]['open']}
-                  trade_code: ${datam[position]['trade_code']}
-                  volume: ${datam[position]['volume']}
-
-                """),
+      body:
+      TabBarView(
+        children: [
+          ListView.builder(
+            itemCount: datam.length,
+            itemBuilder: (BuildContext context, int position) {
+              return Card(
+                child: ListTile(
+                  contentPadding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                  title: Text("${datam[position]['date']}"),
+                  subtitle: Text("""
+                      length: ${datam.length}
+                      close: ${datam[position]['close']}
+                      high: ${datam[position]['high']}
+                      low: ${datam[position]['low']}
+                      open: ${datam[position]['open']}
+                      trade_code: ${datam[position]['trade_code']}
+                      volume: ${datam[position]['volume']}
+                      """),
+                ),
+              );
+            },
+          ),
+          Container(
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Sales for the first 5 years',
+                    style:
+                        TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+                  ),
+                  Expanded(
+                    child: charts.LineChart(_seriesLineData,
+                        defaultRenderer: new charts.LineRendererConfig(
+                            includeArea: true, stacked: true),
+                        animate: true,
+                        animationDuration: Duration(seconds: 5),
+                        behaviors: [
+                          new charts.ChartTitle('Years',
+                              behaviorPosition: charts.BehaviorPosition.bottom,
+                              titleOutsideJustification:
+                                  charts.OutsideJustification.middleDrawArea),
+                          new charts.ChartTitle('Sales',
+                              behaviorPosition: charts.BehaviorPosition.start,
+                              titleOutsideJustification:
+                                  charts.OutsideJustification.middleDrawArea),
+                          new charts.ChartTitle(
+                            'Departments',
+                            behaviorPosition: charts.BehaviorPosition.end,
+                            titleOutsideJustification:
+                                charts.OutsideJustification.middleDrawArea,
+                          )
+                        ]),
+                  ),
+                ],
               ),
-            )
-                ;
-          },
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
+
+
+  Future<List> getData() async {
+    String api = "https://magpiedata-15eaf.firebaseio.com/.json";
+    http.Response response = await http.get(api);
+    return jsonDecode(response.body);
+  }
 }
-Future<List> getData() async {
-  String api = "https://magpiedata-15eaf.firebaseio.com/.json";
-  http.Response response = await http.get(api);
-  return jsonDecode(response.body);
+
+class Sales {
+  int time;
+  int volume;
+
+  Sales(this.time, this.volume);
 }

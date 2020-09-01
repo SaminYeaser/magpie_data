@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:magpie_data/view/showData.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 Widget AppBarText() {
   return TweenAnimationBuilder(
     child: Text(
@@ -22,6 +24,7 @@ Widget AppBarText() {
   );
 }
 Widget showingList(){
+//  var datas = getData();
   return DataTable(columns:[
     DataColumn(label: Text('Date'),numeric: false),
     DataColumn(label: Text('Close'),numeric: false),
@@ -30,6 +33,30 @@ Widget showingList(){
     DataColumn(label: Text('Open'),numeric: false),
     DataColumn(label: Text('Trade_code'),numeric: false),
     DataColumn(label: Text('Volume'),numeric: false),
-  ]
+  ],
+    rows: [
+
+    ]
     ,);
 }
+
+Widget _buildBody(BuildContext context) {
+  return StreamBuilder(
+    builder: (context, snapshot) {
+      if (!snapshot.hasData) return LinearProgressIndicator();
+
+      return DataTable(
+          columns: [
+            DataColumn(label: Text('Name')),
+            DataColumn(label: Text('Votes')),
+            DataColumn(label: Text('Rapper\nname')),
+          ],
+          rows: [
+
+          ]
+      );
+    },
+  );
+}
+
+

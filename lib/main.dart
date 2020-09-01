@@ -7,13 +7,11 @@ import 'dart:convert';
 
 void main() {
   runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: 'MagpieData',
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-      visualDensity: VisualDensity.adaptivePlatformDensity,
-    ),
-    home: DefaultTabController(length: 3,child: AnimationData())
-  ));
+      debugShowCheckedModeBanner: false,
+      title: 'MagpieData',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: DefaultTabController(length: 2, child: AnimationData())));
 }
-
